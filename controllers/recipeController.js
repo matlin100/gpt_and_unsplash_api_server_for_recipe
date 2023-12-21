@@ -5,7 +5,7 @@ const imageUnsplashServer = require('../services/imageUnsplashServer')
 
 async function getRecipesByTypeAndAmount(req, res) {
     try {
-        const { type, amount } = req.params;
+        const { type, amount } = req.body;
         const recipes = await GPTrecipeService.getRecipesIngredientsByGPT(type, amount);
         const imageUrl = await imageUnsplashServer.getImageUrlForType(type, amount);
         res.json({recipes,imageUrl});

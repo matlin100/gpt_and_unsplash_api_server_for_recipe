@@ -4,6 +4,6 @@ const router = express.Router();
 const recipeController = require('../controllers/recipeController');
 
 
-router.get('/byType/:type/:amount', recipeController.getRecipesByTypeAndAmount);
+router.post('/byType', recipeController.getRecipesByTypeAndAmount);
 
 module.exports = router;

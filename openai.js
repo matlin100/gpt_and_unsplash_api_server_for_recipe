@@ -14,4 +14,4 @@ async function getImageUrlForType(type, amount = 10) {
     }
 }
 
-getImageUrlForType('pizza', 1)
+getImageUrlForType('pizza', 3)
