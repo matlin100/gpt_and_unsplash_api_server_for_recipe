@@ -9,7 +9,7 @@ const openai = new OpenAI({
 });
 
 async function getRecipesIngredientsByGPT(query, maxRecipes) {
-    // Construct the prompt for GPT
+    //Construct the prompt for GPT
     const prompt = `List of ${maxRecipes} recipes ingredients and Instructions for ${query} Each recipe will have ingredients: instructions: words fore ingredients and instructions
     Each recipe will start with a recipe name: = the number of the recipe `;
   
