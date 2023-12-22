@@ -44,7 +44,7 @@ async function getRecipesFromMood(req, res) {
       // Call getRecipesByTypeAndAmount with the image description
       const suggest = await GPTrecipeService.getFoofsuggestByMoodFromGPT(type)
       const recipes = await GPTrecipeService.getRecipesIngredientsByGPT(suggest, 4);
-      const imageUrl = await imageUnsplashServer.getImageUrlForType(type, 4);
+      const imageUrl = await imageUnsplashServer.getImageUrlForType(suggest, 4);
       res.json({recipes,imageUrl});
     
   } catch (error) {
@@ -52,8 +52,22 @@ async function getRecipesFromMood(req, res) {
       res.status(500).send('Error processing image');
   }
 }
+
+async function getRecipesByIngredients(req, res) {
+  try {
+      const { ingredients } = req.body;
+      const recipes = await GPTrecipeService.getRecipesByIngredients(ingredients);
+      const imageUrl = await imageUnsplashServer.getImageUrlForType(ingredients.join(" "), 4);
+      res.json({ recipes, imageUrl });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
 module.exports = {
   getRecipesByTypeAndAmount,
   getRecipesFromImage,
   getRecipesFromMood,
+  getRecipesByIngredients,
 };

@@ -42,9 +42,26 @@ async function getRecipesIngredientsByGPT(query, maxRecipes) {
   
   } 
 
+  async function getRecipesByIngredients(ingredients) {
+    const prompt = `Create 4 recipes using the main following ingredients: ${ingredients.join(", ")}.`;
+    // Call the GPT API
+    const response = await openai.chat.completions.create({
+      messages: [{ role: 'user', content: prompt }],
+      model: 'gpt-3.5-turbo',
+      max_tokens: (token_per_Recipes * 4)  
+    });
+   
+   // Extract the response text
+   const textResponse = response.choices[0].message.content;
+
+   // Parse the response into a structured JSON format
+   return parseRecipesToJson(textResponse);
+}
+
 module.exports = {
     getRecipesIngredientsByGPT,
-    getFoofsuggestByMoodFromGPT
+    getFoofsuggestByMoodFromGPT,
+    getRecipesByIngredients
 };
 
 
